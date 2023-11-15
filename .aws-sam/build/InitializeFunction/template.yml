@@ -5,7 +5,7 @@
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  Integration to the carrier GLS
+  Integration to the carrier Danske Fragtmænd
 
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
@@ -15,16 +15,16 @@ Transform:
 # Metadata to use for the publishing to the SAR
 Metadata:
   AWS::ServerlessRepo::Application:
-    Name: thetis-ims-gls-transport
-    Description: Application for integrating Thetis IMS with the freight carrier GLS.
+    Name: thetis-ims-df-transport
+    Description: Application for integrating Thetis IMS with the freight carrier Danske Fragtmænd.
     Author: thetis-apps
     SpdxLicenseId: Apache-2.0
     LicenseUrl: LICENSE.txt
     ReadmeUrl: README.md
     Labels: ['thetis-ims']
-    HomePageUrl: https://github.com/thetis-apps/GLSTransport
-    SemanticVersion: 1.2.7
-    SourceCodeUrl: https://github.com/thetis-apps/GLSTransport
+    HomePageUrl: https://github.com/thetis-apps/DFTransport
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/thetis-apps/DFTransport
     
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -50,8 +50,6 @@ Parameters:
     Type: String
     MinLength: 4
 
-# Resources declares the AWS resources that you want to include in the stack
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:  
 
   # Function that will run when a transport booking is created in Thetis IMS
@@ -59,7 +57,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Description: Function that runs when a transport booking is created in Thetis IMS
-      Handler: src/handlers/gls-transport.bookingHandler
+      Handler: src/handlers/df-transport.bookingHandler
       Environment:
         Variables:
           ClientId:
@@ -83,7 +81,7 @@ Resources:
                 documentType:
                 - TRANSPORT_BOOKING
                 carrierName:
-                - GLS
+                - DF
                 contextId:
                 - Ref: ContextId
       MemorySize: 128
@@ -95,7 +93,7 @@ Resources:
           - DeadLetterQueue
           - Arn
           
-  # Initialisation of GLS integration in context        
+  # Initialisation of DF integration in context        
   InitResource:
     Type: AWS::CloudFormation::CustomResource
     Properties:
@@ -103,12 +101,12 @@ Resources:
         Fn::GetAtt:
         - InitializeFunction
         - Arn
-      Version: 6
+      Version: 10
   InitializeFunction:
     Type: AWS::Serverless::Function
     DeletionPolicy: Delete
     Properties:
-      Handler: src/handlers/gls-transport.initializer
+      Handler: src/handlers/df-transport.initializer
       MemorySize: 2048
       Timeout: 30
       Environment:

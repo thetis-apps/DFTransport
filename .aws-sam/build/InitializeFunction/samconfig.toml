@@ -2,9 +2,10 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "TestGLSTransport"
+stack_name = "TestDFTransport"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1q52gionhjeg3"
-s3_prefix = "TestGLSTransport"
+s3_prefix = "TestDFTransport"
 region = "eu-west-1"
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "ContextId=\"550\" ClientId=\"ThetisClientId\" ClientSecret=\"ThetisClientSecret\" ApiKey=\"b495480a-181c-4608-ab12-d72977776395\" DevOpsEmail=\"lmp@thetis-apps.com\""
+parameter_overrides = "ContextId=\"694\" ClientId=\"ThetisClientId\" ClientSecret=\"ThetisClientSecret\" ApiKey=\"15f75151-8598-4cb4-b184-622882f194c6\" DevOpsEmail=\"lmp@thetis-apps.com\""
+image_repositories = []

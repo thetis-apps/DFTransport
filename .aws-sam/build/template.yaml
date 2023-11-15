@@ -1,20 +1,21 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Integration to the carrier GLS
+Description: "Integration to the carrier Danske Fragtm\xE6nd"
 Transform:
 - AWS::Serverless-2016-10-31
 Metadata:
   AWS::ServerlessRepo::Application:
-    Name: thetis-ims-gls-transport
-    Description: Application for integrating Thetis IMS with the freight carrier GLS.
+    Name: thetis-ims-df-transport
+    Description: "Application for integrating Thetis IMS with the freight carrier\
+      \ Danske Fragtm\xE6nd."
     Author: thetis-apps
     SpdxLicenseId: Apache-2.0
     LicenseUrl: ../../LICENSE.txt
     ReadmeUrl: ../../README.md
     Labels:
     - thetis-ims
-    HomePageUrl: https://github.com/thetis-apps/GLSTransport
-    SemanticVersion: 1.2.7
-    SourceCodeUrl: https://github.com/thetis-apps/GLSTransport
+    HomePageUrl: https://github.com/thetis-apps/DFTransport
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/thetis-apps/DFTransport
 Globals:
   Function:
     Runtime: nodejs16.x
@@ -42,7 +43,7 @@ Resources:
     Properties:
       Description: Function that runs when a transport booking is created in Thetis
         IMS
-      Handler: src/handlers/gls-transport.bookingHandler
+      Handler: src/handlers/df-transport.bookingHandler
       Environment:
         Variables:
           ClientId:
@@ -66,7 +67,7 @@ Resources:
                 documentType:
                 - TRANSPORT_BOOKING
                 carrierName:
-                - GLS
+                - DF
                 contextId:
                 - Ref: ContextId
       MemorySize: 128
@@ -87,12 +88,12 @@ Resources:
         Fn::GetAtt:
         - InitializeFunction
         - Arn
-      Version: 6
+      Version: 10
   InitializeFunction:
     Type: AWS::Serverless::Function
     DeletionPolicy: Delete
     Properties:
-      Handler: src/handlers/gls-transport.initializer
+      Handler: src/handlers/df-transport.initializer
       MemorySize: 2048
       Timeout: 30
       Environment:

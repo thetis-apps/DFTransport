@@ -23,7 +23,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['thetis-ims']
     HomePageUrl: https://github.com/thetis-apps/DFTransport
-    SemanticVersion: 1.2.7
+    SemanticVersion: 1.0.0
     SourceCodeUrl: https://github.com/thetis-apps/DFTransport
     
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
@@ -101,7 +101,7 @@ Resources:
         Fn::GetAtt:
         - InitializeFunction
         - Arn
-      Version: 6
+      Version: 10
   InitializeFunction:
     Type: AWS::Serverless::Function
     DeletionPolicy: Delete
