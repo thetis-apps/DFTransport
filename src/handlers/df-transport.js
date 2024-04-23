@@ -342,7 +342,7 @@ exports.bookingHandler = async (event, context) => {
 	consignment.ConsignmentDate = new Date();
 	
 	/* Need to add wave to API Gateway
-	cd
+	
 	if (shipment.waveId != null) {
 		let now = new Date();
 		response = await server.get('waves/' + shipment.waveId);
